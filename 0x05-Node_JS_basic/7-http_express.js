@@ -3,18 +3,16 @@ const express = require('express');
 const { response } = require('./6-http_express');
 
 const port = 1245;
-
 function countStudents(fileName) {
   const students = {};
   const fields = {};
   let length = 0;
-  let output = '';
-
   return new Promise((resolve, reject) => {
     readFile(fileName, (err, data) => {
       if (err) {
         reject(err);
       } else {
+        let output = '';
         const lines = data.toString().split('\n');
         for (let i = 0; i < lines.length; i += 1) {
           if (lines[i]) {
@@ -40,8 +38,8 @@ function countStudents(fileName) {
             output += `List: ${students[key].join(', ')}\n`;
           }
         }
+        resolve(output);
       }
-      resolve(output);
     });
   });
 }
