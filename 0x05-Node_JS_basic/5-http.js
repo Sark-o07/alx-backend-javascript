@@ -2,18 +2,18 @@ const http = require('http');
 const { readFile } = require('fs');
 
 const port = 1245;
-const hostname = 'localhost';
+const hostname = '127.0.0.1';
+
 function countStudents(fileName) {
   const students = {};
   const fields = {};
   let length = 0;
-  let output = '';
-
   return new Promise((resolve, reject) => {
     readFile(fileName, (err, data) => {
       if (err) {
         reject(err);
       } else {
+        let output = '';
         const lines = data.toString().split('\n');
         for (let i = 0; i < lines.length; i += 1) {
           if (lines[i]) {
@@ -36,11 +36,11 @@ function countStudents(fileName) {
         for (const [key, value] of Object.entries(fields)) {
           if (key !== 'field') {
             output += `Number of students in ${key}: ${value}. `;
-            output = `List: ${students[key].join(', ')}\n`;
+            output += `List: ${students[key].join(', ')}\n`;
           }
         }
+        resolve(output);
       }
-      resolve(output);
     });
   });
 }
@@ -53,7 +53,7 @@ const app = http.createServer((request, response) => {
     response.end();
   }
   if (request.url === '/students') {
-    response.write('This is the list of our students');
+    response.write('This is the list of our students\n');
     countStudents(process.argv[2].toString()).then((output) => {
       const outstring = output.slice(0, -1);
       response.end(outstring);

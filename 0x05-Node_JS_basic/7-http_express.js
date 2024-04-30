@@ -2,7 +2,7 @@ const { readFile } = require('fs');
 const express = require('express');
 const { response } = require('./6-http_express');
 
-const port = 1247;
+const port = 1245;
 
 function countStudents(fileName) {
   const students = {};
