@@ -1,48 +1,56 @@
-interface Teacher {
-    readonly firstName: string,
-    readonly lastName: string,
+interface Teachers {
+    readonly firstname: string,
+    readonly lastname: string,
     fullTimeEmployee: boolean,
     yearsOfExperience?: Number,
     location: string,
-    [propName: string]: any,
+    [propName: string]: any
 }
 
-interface Directors extends Teacher {
-    numberOfReports: Number,
+interface Directors extends Teachers {
+    numberOfreports: number,
+};
+
+
+interface printTeachersFunction {
+    (firstname: string, lastname: string): string;
 }
 
-interface printTeacherFunction {
-    (firstName: string, lastName: string): string;
-}
+const printTeachers: printTeachersFunction = (firstname, lastname) => { return `${firstname.charAt(0)}.${lastname}`};
 
-const printTeacher: printTeacherFunction = (firstName: string, lastName: string): string => `${firstName.charAt(0)}.${lastName}`;
 
-interface classInterface {
+interface classInterface1 {
     workOnHomework(): string;
     displayName(): string;
-  }
-  
-  class StudentClass implements classInterface{
+}
+
+
+class StudentClasses implements classInterface1 {
     firstName: string;
     lastName: string;
-  
+
     constructor(firstName: string, lastName: string) {
-      this.firstName;
-      this.lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
-  
-    workOnHomework():string{
-      return "Currently working";
+
+    workOnHomework(): string {
+        return "Currently working";
     }
-    displayName():string{
-      return this.firstName;
+
+    displayName(): string {
+        return this.firstName
     }
-  }
-  interface StudentConstructor {
-    (firstName: string, lastName: string): classInterface;
-  }
-  
-  const student = new StudentClass("Djo", "djo");
-  console.log(student.displayName())
-  console.log(student.workOnHomework())
-      
+}
+
+interface StudentConstructor1 {
+    (firstName: string, lastName: string): classInterface1;
+}
+
+const studentCreator: StudentConstructor1 = (firstName, lastName) => {
+    return new StudentClasses(firstName, lastName);
+}
+
+const student1 = studentCreator("Azeez", "Montana");
+console.log(student1.displayName());
+console.log(student1.workOnHomework()); 
