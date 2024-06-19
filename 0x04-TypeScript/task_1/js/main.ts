@@ -53,4 +53,4 @@ const studentCreator: StudentConstructor1 = (firstName, lastName) => {
 
 const student1 = studentCreator("Azeez", "Montana");
 console.log(student1.displayName());
-console.log(student1.workOnHomework()); 
+console.log(student1.workOnHomework());
